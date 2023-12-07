@@ -12,7 +12,7 @@ struct DestinationView: View {
     @ObservedObject var flightViewModel: FlightViewModel
     let startDate = Calendar.current.date(from: DateComponents(year: 2023, month: 1, day: 1)) ?? Date()
     
-    let cities = ["Mexico City", "Guadalajara", "Monterrey", "Puebla", "Tijuana", "Cancun"]
+    let cities = ["Mexico City", "Guadalajara", "Monterrey", "Puebla", "Cancun"]
     
     var body: some View {
         VStack {

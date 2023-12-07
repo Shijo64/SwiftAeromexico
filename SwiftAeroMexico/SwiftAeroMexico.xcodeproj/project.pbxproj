@@ -28,6 +28,8 @@
 		7887C1722B221F410059A73E /* FlightStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887C1712B221F410059A73E /* FlightStatusView.swift */; };
 		7887C1742B2220910059A73E /* FlightDetailsCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887C1732B2220910059A73E /* FlightDetailsCustomView.swift */; };
 		7887C1762B222D1D0059A73E /* TopTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887C1752B222D1D0059A73E /* TopTitleView.swift */; };
+		7887C1782B2234FA0059A73E /* FlightResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887C1772B2234FA0059A73E /* FlightResultsViewModel.swift */; };
+		7887C17B2B223B590059A73E /* CitiesEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887C17A2B223B590059A73E /* CitiesEnum.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +55,8 @@
 		7887C1712B221F410059A73E /* FlightStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FlightStatusView.swift; path = "../../../../Documents/Curso swiftui/FlightStatusView.swift"; sourceTree = "<group>"; };
 		7887C1732B2220910059A73E /* FlightDetailsCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FlightDetailsCustomView.swift; path = "../../../../Documents/Curso swiftui/FlightDetailsCustomView.swift"; sourceTree = "<group>"; };
 		7887C1752B222D1D0059A73E /* TopTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TopTitleView.swift; path = "../../../../Documents/Curso swiftui/TopTitleView.swift"; sourceTree = "<group>"; };
+		7887C1772B2234FA0059A73E /* FlightResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FlightResultsViewModel.swift; path = "../../../../Documents/Curso swiftui/FlightResultsViewModel.swift"; sourceTree = "<group>"; };
+		7887C17A2B223B590059A73E /* CitiesEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CitiesEnum.swift; path = "../../../../Documents/Curso swiftui/CitiesEnum.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 		7834F2A22B1FABAA005D84D4 /* SwiftAeroMexico */ = {
 			isa = PBXGroup;
 			children = (
+				7887C1792B223B4B0059A73E /* Enums */,
 				7834F2C52B1FCAAD005D84D4 /* ViewModels */,
 				7834F2BD2B1FC0DE005D84D4 /* Models */,
 				7834F2B82B1FC08C005D84D4 /* Data */,
@@ -146,8 +151,17 @@
 			isa = PBXGroup;
 			children = (
 				7834F2C32B1FCAA7005D84D4 /* FlightViewModel.swift */,
+				7887C1772B2234FA0059A73E /* FlightResultsViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		7887C1792B223B4B0059A73E /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				7887C17A2B223B590059A73E /* CitiesEnum.swift */,
+			);
+			path = Enums;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,6 +241,7 @@
 				7887C1742B2220910059A73E /* FlightDetailsCustomView.swift in Sources */,
 				7834F2C72B1FCBFB005D84D4 /* FlightStatusCollection.swift in Sources */,
 				7834F2A42B1FABAA005D84D4 /* SwiftAeroMexicoApp.swift in Sources */,
+				7887C1782B2234FA0059A73E /* FlightResultsViewModel.swift in Sources */,
 				7834F2CF2B1FD59B005D84D4 /* FlightDetailView.swift in Sources */,
 				7834F2C42B1FCAA7005D84D4 /* FlightViewModel.swift in Sources */,
 				7834F2B72B1FB728005D84D4 /* DestinationView.swift in Sources */,
@@ -235,6 +250,7 @@
 				7834F2CD2B1FCC41005D84D4 /* OutGate.swift in Sources */,
 				7834F2D12B1FD615005D84D4 /* FlightResultsView.swift in Sources */,
 				7834F2B52B1FB6EF005D84D4 /* FlightNumberView.swift in Sources */,
+				7887C17B2B223B590059A73E /* CitiesEnum.swift in Sources */,
 				7887C1702B221B560059A73E /* CustomBackButton.swift in Sources */,
 				7887C16C2B218D090059A73E /* FlightCardView.swift in Sources */,
 				7887C1762B222D1D0059A73E /* TopTitleView.swift in Sources */,

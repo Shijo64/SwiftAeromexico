@@ -28,7 +28,7 @@ struct FlightResultsView: View {
                 .padding(.leading, 20)
                 .padding(.top, 10)
                 Spacer()
-                TopTitleView()
+                TopTitleView(viewModel: FlightResultsViewModel())
                     .padding(.top, 40)
                     .padding(.leading)
             }
@@ -42,7 +42,7 @@ struct FlightResultsView: View {
                 Spacer()
             }
             
-            FlightCardView()
+            FlightCardView(viewModel: FlightResultsViewModel())
                 .padding(.leading)
             Spacer()
         }
