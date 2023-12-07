@@ -72,8 +72,16 @@ struct FlightNumberView: View {
                 DatePicker(selection: $flightViewModel.selectedDepartureDate, displayedComponents: .date) {}
                            .labelsHidden()
                            .contentShape(Rectangle())
-                           .opacity(0.011)             // <<< here
+                           .opacity(0.011)
                    }
+            .overlay(
+                Image(systemName: "calendar")
+                    .resizable()
+                    .frame(width: 24, height: 24)
+                    .foregroundColor(.black)
+                    .padding(.trailing, 5)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            )
         }
         .padding()
     }

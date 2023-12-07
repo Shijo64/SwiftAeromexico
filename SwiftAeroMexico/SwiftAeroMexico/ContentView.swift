@@ -10,8 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var selectedOption = 0
     @ObservedObject var flightViewModel: FlightViewModel
-    @State private var isShowingSecondView = false
-    @State private var path = NavigationPath()
+    @State private var isShowingFlightResults = false
     @State var preselectedIndex = 0
     
     init(viewModel: FlightViewModel) {
@@ -19,7 +18,7 @@ struct ContentView: View {
     }
     
     var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack {
             VStack {
                 Spacer()
                 Text("Track your flight")
@@ -51,7 +50,7 @@ struct ContentView: View {
                     result = [FlightStatus]()
                 }
                 if result.count > 0 {
-                    isShowingSecondView = true
+                    isShowingFlightResults = true
                 }
             }) {
                 Text("Search Flight")
@@ -61,13 +60,10 @@ struct ContentView: View {
                     .background(Color.black)
                     .cornerRadius(8)
             }
-            
-            NavigationLink(
-                destination: FlightResultsView(viewModel: flightViewModel),
-                isActive: $isShowingSecondView,
-                label: { EmptyView() }
-            )
-            .hidden()
+            .fullScreenCover(isPresented: $isShowingFlightResults) {
+                FlightResultsView(viewModel: flightViewModel)
+            }
+
             
             Text("Cant find your flight number?")
             HStack {
@@ -82,6 +78,8 @@ struct ContentView: View {
             }
             Spacer()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea(edges: .top)
     }
 }
 
