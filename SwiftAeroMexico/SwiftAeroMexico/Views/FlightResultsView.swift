@@ -10,9 +10,11 @@ import SwiftUI
 struct FlightResultsView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var flightViewModel: FlightViewModel
+    @ObservedObject var resultsViewModel: FlightResultsViewModel
     
     init(viewModel: FlightViewModel) {
         self.flightViewModel = viewModel
+        self.resultsViewModel = FlightResultsViewModel(flightViewModel: viewModel)
     }
     
     var body: some View {
@@ -28,13 +30,13 @@ struct FlightResultsView: View {
                 .padding(.leading, 20)
                 .padding(.top, 10)
                 Spacer()
-                TopTitleView(viewModel: FlightResultsViewModel())
+                TopTitleView(viewModel: FlightResultsViewModel(flightViewModel: flightViewModel))
                     .padding(.top, 40)
                     .padding(.leading)
             }
             
             HStack {
-                Text("Mexico City to Cancun")
+                Text(resultsViewModel.getFlightCities(originCode: "MEX", destinationCode: "CUN"))
                     .bold()
                     .foregroundColor(.black)
                     .padding(.top, 20)
@@ -42,7 +44,7 @@ struct FlightResultsView: View {
                 Spacer()
             }
             
-            FlightCardView(viewModel: FlightResultsViewModel())
+            FlightCardView(viewModel: FlightResultsViewModel(flightViewModel: flightViewModel))
                 .padding(.leading)
             Spacer()
         }

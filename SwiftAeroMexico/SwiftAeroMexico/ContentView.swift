@@ -11,7 +11,6 @@ struct ContentView: View {
     @State private var selectedOption = 0
     @ObservedObject var flightViewModel: FlightViewModel
     @State private var isShowingFlightResults = false
-    @State var preselectedIndex = 0
     
     init(viewModel: FlightViewModel) {
         self.flightViewModel = viewModel
@@ -31,14 +30,14 @@ struct ContentView: View {
             .background(Color.gray.opacity(0.2))
             .ignoresSafeArea(edges: .top)
             
-            CustomPickerView(selectedOption: $preselectedIndex, options: ["Flight Number", "Destination"])
+            CustomPickerView(selectedOption: $selectedOption, options: ["Flight Number", "Destination"])
                 .padding(.top, -110)
                 .frame(width: 200, height: 50)
             
             if selectedOption == 0 {
                 FlightNumberView(viewModel: flightViewModel)
             } else {
-                DestinationView(flightViewModel: flightViewModel)
+                DestinationView(viewModel: flightViewModel)
             }
             
             Button(action: {
