@@ -9,14 +9,14 @@ import Foundation
 import SwiftUI
 
 struct CustomPickerView: View {
-    @Binding var selectedOption: Int
+    @Binding var selectedOption: Bool
     var options: [String]
     let color = Color.black
     
     var body: some View {
         HStack(spacing: 0) {
             ForEach(options.indices, id:\.self) { index in
-                let isSelected = selectedOption == index
+                let isSelected = selectedOption == (index == 0)
                 ZStack {
                     Rectangle()
                         .fill(.white)
@@ -29,7 +29,7 @@ struct CustomPickerView: View {
                             withAnimation(.interactiveSpring(response: 0.2,
                                                              dampingFraction: 2,
                                                              blendDuration: 0.5)) {
-                                selectedOption = index
+                                selectedOption = index == 0
                             }
                         }
                 }

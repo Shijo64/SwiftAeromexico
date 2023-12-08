@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedOption = 0
     @ObservedObject var flightViewModel: FlightViewModel
     @State private var isShowingFlightResults = false
     
@@ -30,25 +29,23 @@ struct ContentView: View {
             .background(Color.gray.opacity(0.2))
             .ignoresSafeArea(edges: .top)
             
-            CustomPickerView(selectedOption: $selectedOption, options: ["Flight Number", "Destination"])
+            CustomPickerView(selectedOption: $flightViewModel.isSearchByNumber, options: ["Flight Number", "Destination"])
                 .padding(.top, -110)
                 .frame(width: 200, height: 50)
             
-            if selectedOption == 0 {
+            if flightViewModel.isSearchByNumber {
                 FlightNumberView(viewModel: flightViewModel)
             } else {
                 DestinationView(viewModel: flightViewModel)
             }
             
             Button(action: {
-                var result = [FlightStatus]()
-                switch selectedOption {
-                case 0:
-                    result = flightViewModel.searchFlight() ?? []
-                default:
-                    result = [FlightStatus]()
+                switch flightViewModel.isSearchByNumber {
+                case true:
+                    flightViewModel.searchFlight()
+                case false: flightViewModel.searchFlights()
                 }
-                if result.count > 0 {
+                if flightViewModel.flightList.count > 0 {
                     isShowingFlightResults = true
                 }
             }) {
@@ -60,7 +57,7 @@ struct ContentView: View {
                     .cornerRadius(8)
             }
             .fullScreenCover(isPresented: $isShowingFlightResults) {
-                FlightResultsView(viewModel: flightViewModel)
+                FlightResultsView(flights: flightViewModel.flightList)
             }
 
             
@@ -68,7 +65,7 @@ struct ContentView: View {
             HStack {
                 Text("Try searching by")
                 Button(action: {
-                    selectedOption = 1
+                    flightViewModel.isSearchByNumber.toggle()
                 }) {
                     Text("destination.")
                         .underline()

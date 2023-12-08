@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct OutGate: Codable {
+struct OutGate: Codable, Equatable, Hashable {
     let accuracy: String
     let dateTimeUtc: String
     let dateTimeLocal: String

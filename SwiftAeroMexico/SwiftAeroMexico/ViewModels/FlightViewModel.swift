@@ -10,21 +10,22 @@ import Foundation
 class FlightViewModel: ObservableObject {
     @Published var selectedFlightNumber: String = ""
     @Published var selectedDepartureDate: Date = Date()
-    @Published var departureAirport: String = ""
-    @Published var arrivalAirport: String = ""
-    @Published var departureAirportIndex: Int = 0
-    @Published var destinationAirportIndex: Int = 0
+    @Published var departureAirport: String = CitiesEnum.allCases.first?.rawValue ?? ""
+    @Published var arrivalAirport: String = CitiesEnum.allCases.first?.rawValue ?? ""
+    @Published var isSearchByNumber = true
     
     var flightStatusCollection: [FlightStatus] = []
     var flightSearchResult: [FlightStatus]?
-    
-    init() {
-        loadData()
-    }
-    
+    var flightList: [FlightStatus] = []
     
     func loadData() {
-        if let fileURL = Bundle.main.url(forResource: "NumerodeVueloResponse", withExtension: "json") {
+        var fileName = ""
+        if isSearchByNumber {
+            fileName = "NumerodeVueloResponse"
+        } else {
+            fileName = "OrigenDestinoResponse"
+        }
+        if let fileURL = Bundle.main.url(forResource: fileName, withExtension: "json") {
             do {
                 let data = try Data(contentsOf: fileURL)
                 let decoder = JSONDecoder()
@@ -36,7 +37,8 @@ class FlightViewModel: ObservableObject {
         }
     }
     
-    func searchFlight() -> [FlightStatus]? {
+    func searchFlight() {
+        loadData()
         let filteredFlights = flightStatusCollection.filter { flight in
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
@@ -47,8 +49,22 @@ class FlightViewModel: ObservableObject {
             return false
         }
         
-        flightSearchResult = filteredFlights
-        return flightSearchResult
+        flightList = filteredFlights
+    }
+    
+    func searchFlights(){
+        loadData()
+        let filteredFlights = flightStatusCollection.filter { flight in
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            if let departureDate = dateFormatter.date(from: flight.segment.departureDateTime) {
+                return flight.segment.departureAirport == departureAirport &&
+                flight.segment.arrivalAirport == arrivalAirport &&
+                Calendar.current.isDate(departureDate, inSameDayAs: selectedDepartureDate)
+            }
+            return false
+        }
+        flightList = filteredFlights
     }
     
     func searchFlightByDestination() -> [FlightStatus]? {

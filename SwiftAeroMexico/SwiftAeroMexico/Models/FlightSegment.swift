@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct FlightSegment: Codable {
+struct FlightSegment: Codable, Equatable, Hashable {
     let segmentCode: String
     let departureAirport: String
     let arrivalAirport: String

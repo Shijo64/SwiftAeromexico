@@ -9,12 +9,11 @@ import SwiftUI
 
 struct FlightResultsView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var flightViewModel: FlightViewModel
-    @ObservedObject var resultsViewModel: FlightResultsViewModel
+    private var flights: [FlightStatus]
+    private var flightHelper = FlightHelper()
     
-    init(viewModel: FlightViewModel) {
-        self.flightViewModel = viewModel
-        self.resultsViewModel = FlightResultsViewModel(flightViewModel: viewModel)
+    init(flights: [FlightStatus]) {
+        self.flights = flights
     }
     
     var body: some View {
@@ -30,13 +29,13 @@ struct FlightResultsView: View {
                 .padding(.leading, 20)
                 .padding(.top, 10)
                 Spacer()
-                TopTitleView(viewModel: FlightResultsViewModel(flightViewModel: flightViewModel))
+                TopTitleView(flights: self.flights)
                     .padding(.top, 40)
                     .padding(.leading)
             }
             
             HStack {
-                Text(resultsViewModel.getFlightCities(originCode: "MEX", destinationCode: "CUN"))
+                Text(flightHelper.getFlightCities(originCode: flights.first?.segment.departureAirport ?? "MEX", destinationCode: flights.first?.segment.arrivalAirport ?? "CUN"))
                     .bold()
                     .foregroundColor(.black)
                     .padding(.top, 20)
@@ -44,13 +43,16 @@ struct FlightResultsView: View {
                 Spacer()
             }
             
-            FlightCardView(viewModel: FlightResultsViewModel(flightViewModel: flightViewModel))
-                .padding(.leading)
+            List(flights, id: \.self) { item in
+                FlightCardView(flight: item)
+            }
+            .listStyle(PlainListStyle())
+            .background(.white)
             Spacer()
         }
     }
 }
 
 #Preview {
-    FlightResultsView(viewModel: FlightViewModel())
+    FlightResultsView(flights: [FlightStatus(status: "ARRIVED", boardingTerminal: "2", boardingGate: "N/A", boardingTime: "06:24:00", estimatedDepartureTime: "2023-11-21T06:24:00", estimatedArrivalTime: "2023-11-21T09:21:00", delayInMinutes: 23, arrivalTerminal: "4", arrivalGate: "N/A", segment: FlightSegment(segmentCode: "MEX_CUN_AM_2023-11-21_0601", departureAirport: "MEX", arrivalAirport: "CUN", departureDateTime: "2023-11-21T06:01:00", arrivalDateTime: "2023-11-21T09:29:00", flightStatus: "ARRIVED", operatingCarrier: "AM", marketingCarrier: "AM", operatingFlightCode: "500", marketingFlightCode: "500", flightDurationInMinutes: 148, aircraftType: "7S8", stops: []), outGate: OutGate(accuracy: "Actual", dateTimeUtc: "2023-11-21T11:53Z", dateTimeLocal: "2023-11-21T05:53", sourceType: "AirlineData"), legType: "NON-STOP", totalFlightTimeInMinutes: 148)])
 }
